@@ -4,7 +4,7 @@ import java.util.Random;
 public class RandomGenerator {
 
     public static int[] generate() {
-        return generate(100);
+        return generate(1000);
     }
 
     public static int[] generate(int arraySize) {
