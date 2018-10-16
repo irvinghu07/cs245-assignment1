@@ -10,7 +10,7 @@ public class SelectionSort extends AbstractSortingImpl {
 
     public void sortSpecifiedRegion(int[] a, int start, int end) {
         int minIndex;
-        for (int i = start; i <= end; i++) {
+        for (int i = start; i < end; i++) {
             minIndex = findMinAtIndex(a, i, end);
             swapValues(a, i, minIndex);
         }

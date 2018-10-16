@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.TreeMap;
 
@@ -46,21 +47,13 @@ public class HybridSort extends AbstractSortingImpl {
 
     @Override
     public void sort(int[] a) {
-        // 0 - length: run
-//        int runlength = findRunsRecur(a, 0);
-//        if (runlength >= RUNNING_SIZE) {
-//
-//        }
-//
-//        // 0 - length: unsort
-//        int Unsortlength = findUnsortRecur(a, 0);
-
+        System.out.println("a.length: " + a.length);
         findRuns(a);
 //        printRuns(a);
         findUnsortedPart(a);
-//        printURuns(a);
+        printURuns(a);
         mergeBack(a);
-
+        isSorted(a);
     }
 
     private void mergeBack(int[] a) {
@@ -68,41 +61,80 @@ public class HybridSort extends AbstractSortingImpl {
             int uEnd = uruns.get(uStart);
             runs.put(uStart, uEnd);
         }
-//        for (Integer start : runs.keySet()) {
-//            int end = runs.get(start);
-//            System.out.println(String.format("start:%d-end:%d", start, end));
-//        }
-
         System.out.println(runs.keySet().size());
-        int i = 0;
+        int i;
         int start = 0;
         int end = 0;
-        int ustart = 0;
-        int uend = 0;
-        Iterator<Integer> iterator = runs.keySet().iterator();
-        while (iterator.hasNext()) {
-            start = iterator.next();
-            end = runs.get(start);
-            System.out.println("===========================================");
-            System.out.println("i: " + i);
-            System.out.println(String.format("start:%d-end:%d", start, end));
-            if (i % 2 == 0 && iterator.hasNext()) {
-                ustart = iterator.next();
+        int uStart = 0;
+        int uEnd = 0;
+        Iterator<Integer> iterator;
+        int level = 1;
+        int dealer = 0;
+        while (true) {
+            dealer = (int) Math.pow(2, level);
+            i = 0;
+            // setting iterator back to the first element of the keySet;
+            iterator = runs.keySet().iterator();
+            while (iterator.hasNext()) {
+                start = iterator.next();
                 i++;
-                uend = runs.get(ustart);
-                merge(a, start, ustart);
-                System.out.println(String.format("ustart:%d-uend:%d", ustart, uend));
-            } else {
-                System.out.println("inside()");
+                end = runs.get(start);
+                if (i % dealer == 0) {
+                    int k = 0;
+                    while (k < Math.pow(2, level - 1) && iterator.hasNext()) {
+                        uStart = iterator.next();
+                        k++;
+                        i++;
+                    }
+                    uEnd = runs.get(uStart);
+                    System.out.println("===========================================");
+                    System.out.println(String.format("i:%d\t merging start:%d-end:%d\twith\tustart:%d-uend:%d", i, start, end, uStart, uEnd));
+                    merge(a, start, uStart);
+                    // softly deleted unsorted part;
+                    System.out.println(Arrays.toString(a));
+                    runs.put(start, uEnd);
+                }
             }
-            i++;
+            level++;
         }
     }
 
     private void merge(int[] a, int start, int ustart) {
+        int index = 0;
         int end = runs.get(start);
         int uend = runs.get(ustart);
-
+        if (end == uend) {
+            return;
+        }
+        int length = uend - start + 1;
+        System.out.println("length: " + length);
+        int[] temp = new int[length];
+        int i = start;
+        int j = ustart;
+        while (i <= end && j <= uend) {
+            if (a[i] <= a[j]) {
+                temp[index] = a[i];
+                index++;
+                i++;
+            } else {
+                temp[index] = a[j];
+                index++;
+                j++;
+            }
+        }
+        while (i <= end) {
+            temp[index] = a[i];
+            i++;
+            index++;
+        }
+        while (j <= uend) {
+            temp[index] = a[j];
+            j++;
+            index++;
+        }
+        for (int k = 0; k < index; k++) {
+            a[k + start] = temp[k];
+        }
     }
 
 
@@ -114,12 +146,12 @@ public class HybridSort extends AbstractSortingImpl {
                 uStart = runs.get(start) + 1;
                 break;
             }
-            selectionSort.sortSpecifiedRegion(a, uStart, start - 1);
+            selectionSort.sortSpecifiedRegion(a, uStart, start);
             uruns.put(uStart, start - 1);
             uStart = runs.get(start) + 1;
         }
         if (uStart != a.length - 1) {
-            selectionSort.sortSpecifiedRegion(a, uStart, a.length - 1);
+            selectionSort.sortSpecifiedRegion(a, uStart, a.length);
             uruns.put(uStart, a.length - 1);
         }
     }
@@ -173,6 +205,17 @@ public class HybridSort extends AbstractSortingImpl {
             System.out.println();
             System.out.println("============================");
         }
+    }
+
+    private static boolean isSorted(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                System.out.println(Arrays.toString(arr));
+                System.out.println(String.format("%d is bigger than %d at index:%d", arr[i], arr[i + 1], i));
+                return false;
+            }
+        }
+        return true;
     }
 
 }
