@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Driver {
     public static void main(String[] args) {
-        String[] arg = {"3"};
+        String[] arg = {"64"};
         int running_size = 16;
         int[] arr = RandomGenerator.generate();
         System.out.println(Arrays.toString(arr));

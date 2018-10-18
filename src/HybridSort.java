@@ -23,35 +23,11 @@ public class HybridSort extends AbstractSortingImpl {
         uruns = new TreeMap<>();
     }
 
-
-    private int findRunsRecur(int[] a, int i) {
-        if (i == a.length - 2) {
-            return 0;
-        }
-        if (a[i] <= a[i + 1]) {
-            return 1 + findRunsRecur(a, i++);
-        } else {
-            return 0;
-        }
-    }
-
-    private int findUnsortRecur(int[] a, int i) {
-        if (i == a.length - 2) {
-            return 0;
-        }
-        if (a[i] <= a[i + 1]) {
-            return 0;
-        } else {
-            return 1 + findUnsortRecur(a, i++);
-        }
-    }
-
     @Override
     public void sort(int[] a) {
 //        System.out.println("a.length: " + a.length);
-        findRuns(a);
 //        printRuns(a);
-        findUnsortedPart(a);
+
 
 //        System.out.println();
 //        System.out.println("******************************************************");
@@ -60,9 +36,10 @@ public class HybridSort extends AbstractSortingImpl {
 
 
 //        System.out.println(runs.keySet().size());
+        findRuns(a);
+        findUnsortedPart(a);
         mergeBack(a);
         System.out.println(String.format("is%s sorted", isSorted(a) ? "" : " not"));
-        ;
         checkValidation(runs);
 
     }
@@ -81,7 +58,6 @@ public class HybridSort extends AbstractSortingImpl {
             }
             previousEnd = currentEnd;
         }
-        System.out.println(map.getClass().getName() + "validated");
     }
 
     private int findExponent(int i) {
@@ -113,73 +89,17 @@ public class HybridSort extends AbstractSortingImpl {
                     end = runs.get(start);
                 }
                 uEnd = runs.get(uStart);
-                System.out.println("===========================================");
-                System.out.println(String.format("merging start:%d-end:%d\twith\tustart:%d-uend:%d", start, end, uStart, uEnd));
+//                System.out.println("===========================================");
+//                System.out.println(String.format("merging start:%d-end:%d\twith\tustart:%d-uend:%d", start, end, uStart, uEnd));
                 int length = merge(a, start, uStart);
                 previousStart = start;
-                System.out.println("previousStart: " + previousStart + " updating run " + start + "-" + (start + length - 1));
-                System.out.println(Arrays.toString(a));
+//                System.out.println("previousStart: " + previousStart + " updating run " + start + "-" + (start + length - 1));
+//                System.out.println(Arrays.toString(a));
                 runs.put(start, start + length - 1);
                 iterator.remove();
             }
         }
     }
-
-
-//    private void mergeBack(int[] a) {
-//
-//        int i;
-//        int start = 0;
-//        int end = 0;
-//        int uStart = 0;
-//        int uEnd = 0;
-//        Iterator<Integer> iterator;
-//        int level = 1;
-//        int dealer = 0;
-//        int previousStart = 0;
-//        while (level <= findExponent(runs.keySet().size())) {
-//            dealer = (int) Math.pow(2, level);
-//            // dealer : 2, 4,8,16
-//            i = 0;
-//            // setting iterator back to the first element of the keySet;
-//            iterator = runs.keySet().iterator();
-//            while (iterator.hasNext()) {
-//                start = iterator.next();
-//                end = runs.get(start);
-//                if (i % dealer == 0) {
-//                    int k = 0;
-//                    //1,2,4,8,16
-//                    while (k < Math.pow(2, level - 1) && iterator.hasNext()) {
-//                        uStart = iterator.next();
-//                        k++;
-//                        i++;
-//                    }
-//                    if (!iterator.hasNext()) {
-//                        uStart = start;
-//                        start = previousStart;
-//                        end = runs.get(start);
-//                    }
-//                    uEnd = runs.get(uStart);
-//                    System.out.println("===========================================");
-//                    System.out.println(String.format("i:%d\t merging start:%d-end:%d\twith\tustart:%d-uend:%d", i, start, end, uStart, uEnd));
-//                    int length = merge(a, start, uStart);
-//                    previousStart = start;
-//                    System.out.println("previousStart: " + previousStart + " updating run " + start + "-" + (start + length - 1));
-//                    // softly deleted unsorted part;
-//                    System.out.println(Arrays.toString(a));
-//                    runs.put(start, start + length - 1);
-//                }else {
-//                    if (!iterator.hasNext()) {
-//                        uStart = start;
-//                        start = previousStart;
-//                        end = runs.get(start);
-//                    }
-//                }
-//                i++;
-//            }
-//            level++;
-//        }
-//    }
 
     private int merge(int[] a, int start, int ustart) {
         int index = 0;
@@ -189,7 +109,6 @@ public class HybridSort extends AbstractSortingImpl {
             return 0;
         }
         int length = (end - start) + (uend - ustart) + 2;
-        System.out.println("length: " + length);
         int[] temp = new int[length];
         int i = start;
         int j = ustart;
@@ -232,8 +151,6 @@ public class HybridSort extends AbstractSortingImpl {
             if (start - uStart >= 1) {
                 selectionSort.sortSpecifiedRegion(a, uStart, start);
                 uruns.put(uStart, start - 1);
-            } else {
-                System.out.println("fuck you");
             }
             uStart = runs.get(start) + 1;
         }
