@@ -25,21 +25,9 @@ public class HybridSort extends AbstractSortingImpl {
 
     @Override
     public void sort(int[] a) {
-//        System.out.println("a.length: " + a.length);
-//        printRuns(a);
-
-
-//        System.out.println();
-//        System.out.println("******************************************************");
-//        System.out.println();
-//        printURuns(a);
-
-
-//        System.out.println(runs.keySet().size());
         findRuns(a);
         findUnsortedPart(a);
         mergeBack(a);
-        System.out.println(String.format("is%s sorted", isSorted(a) ? "" : " not"));
         checkValidation(runs);
 
     }
@@ -60,19 +48,10 @@ public class HybridSort extends AbstractSortingImpl {
         }
     }
 
-    private int findExponent(int i) {
-        if (i == 1) {
-            return 0;
-        }
-        return 1 + findExponent(i / 2);
-    }
-
 
     private void mergeBack(int[] a) {
         int start = 0;
-        int end = 0;
         int uStart = 0;
-        int uEnd = 0;
         Iterator<Integer> iterator;
         int previousStart = 0;
         while (runs.keySet().size() != 1) {
@@ -80,21 +59,14 @@ public class HybridSort extends AbstractSortingImpl {
             iterator = runs.keySet().iterator();
             while (iterator.hasNext()) {
                 start = iterator.next();
-                end = runs.get(start);
                 if (iterator.hasNext()) {
                     uStart = iterator.next();
                 } else {
                     uStart = start;
                     start = previousStart;
-                    end = runs.get(start);
                 }
-                uEnd = runs.get(uStart);
-//                System.out.println("===========================================");
-//                System.out.println(String.format("merging start:%d-end:%d\twith\tustart:%d-uend:%d", start, end, uStart, uEnd));
                 int length = merge(a, start, uStart);
                 previousStart = start;
-//                System.out.println("previousStart: " + previousStart + " updating run " + start + "-" + (start + length - 1));
-//                System.out.println(Arrays.toString(a));
                 runs.put(start, start + length - 1);
                 iterator.remove();
             }
@@ -184,46 +156,6 @@ public class HybridSort extends AbstractSortingImpl {
                 }
             }
         }
-    }
-
-
-    private void printRuns(int[] a) {
-        for (Integer start : runs.keySet()) {
-            Integer end = runs.get(start);
-            System.out.println(String.format("start:%d\tend:%d", start, end));
-            System.out.println("============================");
-            for (int i = start; i <= end; i++) {
-                System.out.print(a[i] + ",");
-
-            }
-            System.out.println();
-            System.out.println("============================");
-        }
-    }
-
-    private void printURuns(int[] a) {
-        for (Integer start : uruns.keySet()) {
-            Integer end = uruns.get(start);
-            System.out.println(String.format("start:%d\tend:%d", start, end));
-            System.out.println("============================");
-            for (int i = start; i <= end; i++) {
-                System.out.print(a[i] + ",");
-
-            }
-            System.out.println();
-            System.out.println("============================");
-        }
-    }
-
-    private static boolean isSorted(int[] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] > arr[i + 1]) {
-                System.out.println(Arrays.toString(arr));
-                System.out.println(String.format("%d is bigger than %d at index:%d", arr[i], arr[i + 1], i));
-                return false;
-            }
-        }
-        return true;
     }
 
 }
