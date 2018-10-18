@@ -1,0 +1,180 @@
+***************************************************
+array length: 50000
+total time for MergeSort:31 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 32 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 280 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 253 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 253 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 100000
+total time for MergeSort:14 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 20 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 1017 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 1011 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 1012 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 150000
+total time for MergeSort:18 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 23 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 2275 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 2275 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 2275 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 200000
+total time for MergeSort:21 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 28 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 4042 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 4042 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 4043 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 250000
+total time for MergeSort:25 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 35 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 6311 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 6311 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 6311 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 300000
+total time for MergeSort:30 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 42 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 4887 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 9083 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 9088 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 350000
+total time for MergeSort:35 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 49 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 12359 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 12359 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 12363 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 400000
+total time for MergeSort:43 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 54 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 9404 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 16136 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 16136 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 450000
+total time for MergeSort:52 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 61 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 20381 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 20374 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 20374 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************
+***************************************************
+array length: 500000
+total time for MergeSort:50 ms
+MergeSort sorted
+===================================================
+total time for MergeSort: 70 ms with running size:2
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 7571 ms with running size:3
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 25150 ms with running size:4
+HybridSort sorted
+----------------------------------------------------
+total time for MergeSort: 25150 ms with running size:5
+HybridSort sorted
+----------------------------------------------------
+***************************************************1
