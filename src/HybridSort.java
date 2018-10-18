@@ -49,19 +49,23 @@ public class HybridSort extends AbstractSortingImpl {
     public void sort(int[] a) {
         System.out.println("a.length: " + a.length);
         findRuns(a);
-//        printRuns(a);
         findUnsortedPart(a);
-        printURuns(a);
+//        printURuns(a);
+        printRuns(a);
+        System.out.println(runs.keySet().size());
         mergeBack(a);
         isSorted(a);
     }
 
-    private void mergeBack(int[] a) {
-        for (Integer uStart : uruns.keySet()) {
-            int uEnd = uruns.get(uStart);
-            runs.put(uStart, uEnd);
+    private int findExponent(int i) {
+        if (i == 1) {
+            return 0;
         }
-        System.out.println(runs.keySet().size());
+        return 1 + findExponent(i / 2);
+    }
+
+    private void mergeBack(int[] a) {
+
         int i;
         int start = 0;
         int end = 0;
@@ -70,43 +74,59 @@ public class HybridSort extends AbstractSortingImpl {
         Iterator<Integer> iterator;
         int level = 1;
         int dealer = 0;
-        while (true) {
+        int previousStart = 0;
+        while (level <= findExponent(runs.keySet().size())) {
             dealer = (int) Math.pow(2, level);
+            // dealer : 2, 4,8,16
             i = 0;
             // setting iterator back to the first element of the keySet;
             iterator = runs.keySet().iterator();
             while (iterator.hasNext()) {
                 start = iterator.next();
-                i++;
                 end = runs.get(start);
                 if (i % dealer == 0) {
                     int k = 0;
+                    //1,2,4,8,16
                     while (k < Math.pow(2, level - 1) && iterator.hasNext()) {
                         uStart = iterator.next();
                         k++;
                         i++;
                     }
+                    if (!iterator.hasNext()) {
+                        uStart = start;
+                        start = previousStart;
+                        end = runs.get(start);
+                    }
                     uEnd = runs.get(uStart);
                     System.out.println("===========================================");
                     System.out.println(String.format("i:%d\t merging start:%d-end:%d\twith\tustart:%d-uend:%d", i, start, end, uStart, uEnd));
-                    merge(a, start, uStart);
+                    int length = merge(a, start, uStart);
+                    previousStart = start;
+                    System.out.println("previousStart: " + previousStart + " updating run " + start + "-" + (start + length - 1));
                     // softly deleted unsorted part;
                     System.out.println(Arrays.toString(a));
-                    runs.put(start, uEnd);
+                    runs.put(start, start + length - 1);
+                }else {
+                    if (!iterator.hasNext()) {
+                        uStart = start;
+                        start = previousStart;
+                        end = runs.get(start);
+                    }
                 }
+                i++;
             }
             level++;
         }
     }
 
-    private void merge(int[] a, int start, int ustart) {
+    private int merge(int[] a, int start, int ustart) {
         int index = 0;
         int end = runs.get(start);
         int uend = runs.get(ustart);
         if (end == uend) {
-            return;
+            return 0;
         }
-        int length = uend - start + 1;
+        int length = (end - start) + (uend - ustart) + 2;
         System.out.println("length: " + length);
         int[] temp = new int[length];
         int i = start;
@@ -135,6 +155,7 @@ public class HybridSort extends AbstractSortingImpl {
         for (int k = 0; k < index; k++) {
             a[k + start] = temp[k];
         }
+        return length;
     }
 
 
@@ -153,6 +174,10 @@ public class HybridSort extends AbstractSortingImpl {
         if (uStart != a.length - 1) {
             selectionSort.sortSpecifiedRegion(a, uStart, a.length);
             uruns.put(uStart, a.length - 1);
+        }
+        for (Integer num : uruns.keySet()) {
+            int uEnd = uruns.get(num);
+            runs.put(num, uEnd);
         }
     }
 
